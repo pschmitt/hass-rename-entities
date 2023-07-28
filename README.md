@@ -43,6 +43,8 @@ Options:
 - `-h, --help`: Display this help message
 - `-D, --debug`: Enable debug mode
 - `-k, --dry-run, --dryrun`: Enable dry run mode
+- `-n, --no-restart`: Do not restart Home Assistant after renaming the entities
+- `--watchman`: Generate a new [watchman](https://github.com/dummylabs/thewatchman) report after renaming the entities"
 - `-i, --integration <integration>`: Filter by integration
 - `-m, --manufacturer <manufacturer>`: Filter by manufacturer
 - `--only-named, --named-only`: Only consider named devices

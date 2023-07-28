@@ -8,6 +8,8 @@ usage() {
   echo "  -h, --help                           Display this help message"
   echo "  -D, --debug                          Enable debug mode"
   echo "  -k, --dry-run, --dryrun              Enable dry run mode"
+  echo "  -n, --no-restart                     Do not restart Home Assistant after renaming the entities"
+  echo "  --watchman                           Generate a new watchman report after renaming the entities"
   echo "  -i, --integration <integration>      Filter by integration"
   echo "  -m, --manufacturer <manufacturer>    Filter by manufacturer"
   echo "  --only-named, --named-only           Only consider named devices"
@@ -169,6 +171,14 @@ then
         ;;
       -k|--dry-run|--dryrun)
         DRY_RUN=1
+        shift
+        ;;
+      -n|--no-restart)
+        NO_RESTART=1
+        shift
+        ;;
+      --watchman)
+        WATCHMAN_REPORT=1
         shift
         ;;
       -i|--integration)
@@ -420,8 +430,11 @@ then
     fi
   fi
 
-  echo_info "Requesting a new watchman report"
-  hass-cli service call watchman.report
+  if [[ -n "$WATCHMAN_REPORT" ]]
+  then
+    echo_info "Requesting a new watchman report"
+    hass-cli service call watchman.report
+  fi
 
   exit "$RC"
 fi
