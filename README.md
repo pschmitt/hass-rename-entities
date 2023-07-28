@@ -1,6 +1,6 @@
-# 🚀 Home Assistant CLI Rename Entities Script 
+# 🚀 Home Assistant CLI Rename Entities Script
 
-This script allows you to rename entities in your Home Assistant setup using 
+This script allows you to rename entities in your Home Assistant setup using
 the command line interface.
 
 ## 📚 Table of Contents
@@ -52,10 +52,18 @@ Options:
 - `--strip-purpose, --sp <string>`: Strip a custom string from the entity's purpose
 - `-p, --prefix <prefix>`: Specify a custom prefix
 
+> [!NOTE]
+> To inspect what the exact manufacturer or integration values are for your
+> specific devices the easiest way is to run:
+>
+> ```shell
+> hass-cli -o yaml device list
+> ```
+
 ## 📝 Custom Format Variables
 
-When specifying a custom format using the `-F` or `--format` flag, you can use 
-several variables that will be replaced by their respective values. 
+When specifying a custom format using the `-F` or `--format` flag, you can use
+several variables that will be replaced by their respective values.
 Here is a list of these variables:
 
 - `${ENTITY_TYPE}`: The type of the entity (e.g., `light`, `switch`, `sensor`, etc.).
@@ -69,20 +77,20 @@ Here is a list of these variables:
 - `${SLUG_PREFIX}`: The "slugified" version of the prefix provided using the `-p` or `--prefix` flag.
 - `${SLUG_PLATFORM}`: The "slugified" version of the platform to which the entity belongs.
 
-> [!NOTE]  
-> Remember that "slugification" is a process that transforms a string into a 
-> URL-friendly format by replacing spaces with underscores, 
-> converting all letters to lowercase, and removing special characters. 
-> It helps avoiding to attempt to set invalid entity id names.
-
 The default format is the following:
 
 ```bash
 ${ENTITY_TYPE,,}.${SLUG_PREFIX}${SLUG_PLATFORM}_${SLUG_DEVICE_NAME}_${SLUG_OG_NAME_PURPOSE}
 ```
 
-> [!NOTE]  
-> The format value gets passed through `eval`, so you can just provide arbitrary 
+> [!NOTE]
+> Remember that "slugification" is a process that transforms a string into a
+> URL-friendly format by replacing spaces with underscores,
+> converting all letters to lowercase, and removing special characters.
+> It helps avoiding to attempt to set invalid entity id names.
+
+> [!NOTE]
+> The format value gets passed through `eval`, so you can just provide arbitrary
 > code (sed/awk for example - see [below for an example](#rename-shelly-devices)).
 
 ## 🎈 Examples
