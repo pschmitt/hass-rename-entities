@@ -82,7 +82,7 @@ ${ENTITY_TYPE,,}.${SLUG_PREFIX}${SLUG_PLATFORM}_${SLUG_DEVICE_NAME}_${SLUG_OG_NA
 
 > [!NOTE]  
 > The format value gets passed through `eval`, so you can just provide arbitrary 
-> code (sed/awk for example). See [Rename Shelly Devices](#rename-shelly-devices) below.
+> code (sed/awk for example). See [below for an example](#rename-shelly-devices).
 
 ## 🎈 Examples
 
