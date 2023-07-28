@@ -14,7 +14,8 @@ the command line interface.
 
 ## 🎉 Installation
 
-To use this script, you need to have the [Home Assistant CLI](https://github.com/home-assistant-ecosystem/home-assistant-cli) installed on your system.
+To use this script, you need to have [Home Assistant CLI](https://github.com/home-assistant-ecosystem/home-assistant-cli) 
+installed (and configured!)
 
 ```bash
 # pipx
