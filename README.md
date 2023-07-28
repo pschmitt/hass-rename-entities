@@ -69,10 +69,11 @@ Here is a list of these variables:
 - `${SLUG_PREFIX}`: The "slugified" version of the prefix provided using the `-p` or `--prefix` flag.
 - `${SLUG_PLATFORM}`: The "slugified" version of the platform to which the entity belongs.
 
-Remember that "slugification" is a process that transforms a string into a 
-URL-friendly format by replacing spaces with underscores, 
-converting all letters to lowercase, and removing special characters. 
-It helps avoiding to attempt to set invalid entity id names.
+> [!NOTE]  
+> Remember that "slugification" is a process that transforms a string into a 
+> URL-friendly format by replacing spaces with underscores, 
+> converting all letters to lowercase, and removing special characters. 
+> It helps avoiding to attempt to set invalid entity id names.
 
 The default format is the following:
 
