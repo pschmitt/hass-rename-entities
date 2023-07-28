@@ -46,7 +46,7 @@ Options:
 - `-k, --dry-run, --dryrun`: Enable dry run mode
 - `-n, --no-restart`: Do not restart Home Assistant after renaming the entities
 - `--watchman`: Generate a new [watchman](https://github.com/dummylabs/thewatchman) report after renaming the entities"
-- `-P, --patch-config-files`: Patch config files after renaming the entities (sed and replace on all files in ${HASS_CONFIG_DIR:-/config})"
+- `-P, --patch-config-files`: Patch config files after renaming the entities (sed and replace on all files in `${HASS_CONFIG_DIR:-/config}`)
 - `-i, --integration <integration>`: Filter by integration
 - `-m, --manufacturer <manufacturer>`: Filter by manufacturer
 - `--only-named, --named-only`: Only consider named devices
