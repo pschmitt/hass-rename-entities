@@ -10,6 +10,7 @@ usage() {
   echo "  -k, --dry-run, --dryrun              Enable dry run mode"
   echo "  -n, --no-restart                     Do not restart Home Assistant after renaming the entities"
   echo "  --watchman                           Generate a new watchman report after renaming the entities"
+  echo "  -P, --patch-config-files             Patch config files after renaming the entities (sed and replace on all files in ${HASS_CONFIG_DIR:-/config})"
   echo "  -i, --integration <integration>      Filter by integration"
   echo "  -m, --manufacturer <manufacturer>    Filter by manufacturer"
   echo "  --only-named, --named-only           Only consider named devices"
@@ -131,7 +132,7 @@ patch_config() {
   fi
 
   # Go to config dir
-  cd /config &>/dev/null || cd /mnt/hass-*
+  cd "$HASS_CONFIG_DIR" &>/dev/null || cd /mnt/hass-*
 
   local matching_files file
   mapfile -t matching_files < <(
@@ -157,6 +158,7 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]
 then
   RC=0
   FAILED_RENAMES=()
+  HASS_CONFIG_DIR="${HASS_CONFIG_DIR:-/config}"
 
   while [[ -n "$*" ]]
   do
@@ -179,6 +181,10 @@ then
         ;;
       --watchman)
         WATCHMAN_REPORT=1
+        shift
+        ;;
+      -P|--patch-config-files)
+        PATCH_CONFIG_FILES=1
         shift
         ;;
       -i|--integration)
@@ -405,8 +411,12 @@ then
         fi
 
         echo_success "Renamed successfully."
-        echo_info "Patching config files..."
-        patch_config "$ENTITY_ID" "$NEW_ENTITY_ID"
+
+        if [[ -n "$PATCH_CONFIG_FILES" ]]
+        then
+          echo_info "Patching config files..."
+          patch_config "$ENTITY_ID" "$NEW_ENTITY_ID"
+        fi
       fi
     done
   done
