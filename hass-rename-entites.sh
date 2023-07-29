@@ -98,6 +98,11 @@ restart_hass() {
   fi
 }
 
+watchman_report() {
+  echo_info "Requesting a new watchman report"
+  hass-cli service call watchman.report
+}
+
 find_matching_config_files() {
   local search="$1"
   local -a matching_files
@@ -442,8 +447,7 @@ then
 
   if [[ -n "$WATCHMAN_REPORT" ]]
   then
-    echo_info "Requesting a new watchman report"
-    hass-cli service call watchman.report
+    watchman_report
   fi
 
   exit "$RC"
