@@ -25,10 +25,10 @@ pipx install homeassistant-cli
 pip install --user homeassistant-cli
 ```
 
-Then, download the `hass-cli-rename-entites.sh` script and make it executable:
+Then, download the `hass-rename-entites.sh` script and make it executable:
 
 ```bash
-chmod +x hass-cli-rename-entites.sh
+chmod +x hass-rename-entites.sh
 ```
 
 ## 💡 Usage
@@ -36,7 +36,7 @@ chmod +x hass-cli-rename-entites.sh
 You can use the script with various options:
 
 ```bash
-./hass-cli-rename-entites.sh [options]
+./hass-rename-entites.sh [options]
 ```
 
 Options:
@@ -106,7 +106,7 @@ Here are some examples showing how to use the script:
 To only rename devices that have a name:
 
 ```bash
-./hass-cli-rename-entites.sh --dry-run --named-only
+./hass-rename-entites.sh --dry-run --named-only
 ```
 
 ### Filter by Integration and Specify Custom Format
@@ -114,7 +114,7 @@ To only rename devices that have a name:
 To only rename entities from a specific integration and specify a custom format:
 
 ```bash
-./hass-cli-rename-entites.sh --dry-run \
+./hass-rename-entites.sh --dry-run \
   --named-only \
   -i bluetooth \
   --format '${ENTITY_TYPE}.ble_${SLUG_DEVICE_NAME}_${SLUG_OG_NAME_PURPOSE}' \
@@ -126,7 +126,7 @@ To only rename entities from a specific integration and specify a custom format:
 To only rename entities from a specific manufacturer:
 
 ```bash
-./hass-cli-rename-entites.sh --dry-run -m switchbot
+./hass-rename-entites.sh --dry-run -m switchbot
 ```
 
 ### Filter by Integration and Device
@@ -134,7 +134,7 @@ To only rename entities from a specific manufacturer:
 To only rename entities from a specific integration and device:
 
 ```bash
-./hass-cli-rename-entites.sh --dry-run \
+./hass-rename-entites.sh --dry-run \
   -i hue \
   --device-filter 'motion' \
   --format '${ENTITY_TYPE}.${INTEGRATION}_${SLUG_DEVICE_NAME}_${SLUG_OG_NAME_PURPOSE}'
@@ -145,7 +145,7 @@ To only rename entities from a specific integration and device:
 To only rename entities from a specific integration and entity type:
 
 ```bash
-./hass-cli-rename-entites.sh --dry-run \
+./hass-rename-entites.sh --dry-run \
   -i hue \
   --device-filter 'light' \
   --entity-filter "^light." \
@@ -157,7 +157,7 @@ To only rename entities from a specific integration and entity type:
 To only rename entities from a specific integration and entity type (not starting with "light."):
 
 ```bash
-./hass-cli-rename-entites.sh --dry-run \
+./hass-rename-entites.sh --dry-run \
   -i hue \
   --device-filter 'light' \
   --entity-filter '^(?!light\.)' \
@@ -169,7 +169,7 @@ To only rename entities from a specific integration and entity type (not startin
 To only rename entities from a specific integration and entity type (excluding "light."):
 
 ```bash
-./hass-cli-rename-entites.sh --dry-run \
+./hass-rename-entites.sh --dry-run \
   -i hue \
   --entity-filter '^(?!light\.)' \
   --format '${ENTITY_TYPE}.${INTEGRATION}_${SLUG_DEVICE_NAME}_${SLUG_OG_NAME_PURPOSE}'
@@ -180,7 +180,7 @@ To only rename entities from a specific integration and entity type (excluding "
 To rename HomeKit devices (excluding presence sensors):
 
 ```bash
-./hass-cli-rename-entites.sh --dry-run \
+./hass-rename-entites.sh --dry-run \
   -i homekit \
   --device-filter '^(?!.+ presence sensor)' \
   --format '${ENTITY_TYPE}.${INTEGRATION}_${SLUG_DEVICE_NAME}_${SLUG_OG_NAME_PURPOSE}'
@@ -191,7 +191,7 @@ To rename HomeKit devices (excluding presence sensors):
 To rename HomeKit presence sensors:
 
 ```bash
-./hass-cli-rename-entites.sh --dry-run \
+./hass-rename-entites.sh --dry-run \
   -i homekit \
   --device-filter '.+ presence sensor' \
   --entity-filter "^binary_sensor\..+" \
@@ -203,7 +203,7 @@ To rename HomeKit presence sensors:
 To rename Shelly devices:
 
 ```bash
-./hass-cli-rename-entites.sh --dry-run \
+./hass-rename-entites.sh --dry-run \
   -m Shelly \
   --format '${ENTITY_TYPE}.shelly_${SLUG_DEVICE_NAME}$(sed -r "s/^(.+)/_\1/" <<< "${SLUG_OG_NAME_PURPOSE}")'
 ```
@@ -213,7 +213,7 @@ To rename Shelly devices:
 To rename Yeelight devices:
 
 ```bash
-hass-cli-rename-entites.sh --dry-run \
+hass-rename-entites.sh --dry-run \
   -i yeelight \
   --format '${ENTITY_TYPE}.${INTEGRATION}_${SLUG_DEVICE_NAME}'
 ```
@@ -223,7 +223,7 @@ hass-cli-rename-entites.sh --dry-run \
 To rename ZHA devices:
 
 ```bash
-hass-cli-rename-entites.sh --dry-run \
+hass-rename-entites.sh --dry-run \
   --named-only \
   -i zha \
   --format '${ENTITY_TYPE}.${INTEGRATION}_${SLUG_DEVICE_NAME}_${SLUG_OG_NAME_PURPOSE}'
