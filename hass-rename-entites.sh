@@ -275,7 +275,7 @@ then
     DEVICE_DATA="$(DEVICE_ID="${DEVICE_ID}" yq -e '[.[] | select(.id == strenv(DEVICE_ID))][0]' <<< "$DEVICES")"
     # NOTE: Area ID is not always set
     # shellcheck disable=SC2034
-    AREA_ID="$(yq --unwrapScalar '.area_id // ""' <<< "$DEVICE_DATA")"
+    DEVICE_AREA_ID="$(yq --unwrapScalar '.area_id // ""' <<< "$DEVICE_DATA")"
     DEVICE_FRIENDLY_NAME="$(yq -e --unwrapScalar '.name_by_user // .name' <<< "$DEVICE_DATA")"
     OG_DEVICE_NAME="$(yq -e --unwrapScalar '.name' <<< "$DEVICE_DATA")"
 
@@ -323,6 +323,9 @@ then
       SLUG_OG_DEVICE_NAME="$(slugify "$OG_DEVICE_NAME"; true)"
       SLUG_OG_NAME="$(slugify "$OG_NAME")"
       SLUG_OG_NAME_LAST_WORD="$(slugify "${OG_NAME##* }")"
+      AREA_ID="$(yq --unwrapScalar '.area_id // ""' <<< "$ENTITY_DATA")"
+      # Default to device area id
+      AREA_ID="${AREA_ID:-$DEVICE_AREA_ID}"
       # remove the device name from the original entity name and
       # trim leading and trailing whitespace with awk
       # https://unix.stackexchange.com/a/205854

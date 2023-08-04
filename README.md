@@ -72,6 +72,8 @@ Here is a list of these variables:
 
 - `${ENTITY_TYPE}`: The type of the entity (e.g., `light`, `switch`, `sensor`, etc.).
 - `${INTEGRATION}`: The integration to which the entity belongs (e.g., `hue`, `homekit`, etc.).
+- `${DEVICE_AREA_ID}`: Area *ID* of the device.
+- `${AREA_ID}`: Area *ID* of the entity (defaults to `DEVICE_AREA_ID` if not set).
 - `${SLUG_DEVICE_NAME}`: The "slugified" version of the device name. This is a URL-friendly version of the name where spaces are replaced with underscores and special characters are removed.
 - `${SLUG_OG_NAME_PURPOSE}`: The "slugified" version of the original name of the entity, with the device name removed. This typically leaves the purpose or role of the entity (e.g., `temperature`, `motion`, etc.).
 - `${SLUG_ENTITY_FRIENDLY_NAME}`: The "slugified" version of the entity's friendly name. This is the name that you see in the Home Assistant UI.
