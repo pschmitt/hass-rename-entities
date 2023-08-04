@@ -2,6 +2,9 @@
 
 set -eo pipefail
 
+# shellcheck disable=2016
+DEFAULT_FORMAT='${ENTITY_TYPE,,}.${SLUG_PREFIX}${SLUG_PLATFORM}_${SLUG_DEVICE_NAME}_${SLUG_OG_NAME_PURPOSE}'
+
 usage() {
   echo "Usage: $0 [options]"
   echo "Options:"
@@ -17,6 +20,8 @@ usage() {
   echo "  --device-filter, --df, -f <filter>   Filter devices by a custom string"
   echo "  --entity-filter, --ef, -e <filter>   Filter entities by a custom string"
   echo "  -F, --format <format>                Specify a custom name format"
+  echo "                                       Default format:"
+  echo "                                       ${DEFAULT_FORMAT}"
   echo "  --strip-purpose, --sp <string>       Strip a custom string from the entity's purpose"
   echo "  -p, --prefix <prefix>                Specify a custom prefix"
 }
@@ -359,7 +364,7 @@ then
           eval echo "$NAME_FORMAT")"
       else
         # Default naming scheme
-        NEW_ENTITY_ID="${ENTITY_TYPE,,}.${SLUG_PREFIX}${SLUG_PLATFORM}_${SLUG_DEVICE_NAME}_${SLUG_OG_NAME_PURPOSE}"
+        NEW_ENTITY_ID="$(eval echo "$DEFAULT_FORMAT")"
       fi
 
       # Remove trailing _
