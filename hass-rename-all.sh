@@ -66,8 +66,8 @@ rename_tado() {
 
 rename_withings() {
   ./hass-rename-entites.sh \
-    -m Withings \
-    --format '${ENTITY_TYPE}.${SLUG_DEVICE_NAME}_${SLUG_OG_NAME_PURPOSE}'
+    -i withings \
+    --format '${ENTITY_TYPE}.withings_${SLUG_DEVICE_NAME}_${SLUG_OG_NAME_PURPOSE}'
 }
 
 rename_yeelight() {
@@ -96,6 +96,7 @@ then
   rename_hue
   rename_shelly
   rename_tado
+  rename_withings
   rename_yeelight
   rename_zha
 
