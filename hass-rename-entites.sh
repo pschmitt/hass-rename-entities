@@ -69,7 +69,7 @@ slugify() {
   if [[ -z "$n" ]]
   then
     echo_warning "${FUNCNAME[0]}: Empty input"
-    return 1
+    return 0
   fi
 
   # Replace spaces, slashes, dots and dashes with underscores
@@ -86,7 +86,7 @@ slugify() {
   if [[ -z "$n" ]]
   then
     echo_warning "$0: Empty output"
-    return 1
+    return 0
   fi
 
   transliterate <<< "${n,,}"
@@ -307,8 +307,8 @@ then
       ENTITY_DATA="$(ENTITY_ID="$ENTITY_ID" \
         yq -e --unwrapScalar '[.[] | select(.entity_id == strenv(ENTITY_ID))][0]' <<< "$ENTITIES")"
 
-      PLATFORM="$(yq -e --unwrapScalar '.platform' <<< "$ENTITY_DATA")"
-      OG_NAME="$(yq -e --unwrapScalar '.original_name' <<< "$ENTITY_DATA")"
+      PLATFORM="$(yq -e --unwrapScalar '.platform // ""' <<< "$ENTITY_DATA")"
+      OG_NAME="$(yq -e --unwrapScalar '.original_name // ""' <<< "$ENTITY_DATA")"
 
       if [[ -n "$ENTITY_ID_FILTER" ]]
       then
@@ -324,8 +324,8 @@ then
       # shellcheck disable=SC2034
       ENTITY_FRIENDLY_NAME="$(yq --unwrapScalar '.name // ""' <<< "$ENTITY_DATA")"
 
-      SLUG_DEVICE_NAME="$(slugify "$DEVICE_FRIENDLY_NAME"; true)"
-      SLUG_OG_DEVICE_NAME="$(slugify "$OG_DEVICE_NAME"; true)"
+      SLUG_DEVICE_NAME="$(slugify "$DEVICE_FRIENDLY_NAME")"
+      SLUG_OG_DEVICE_NAME="$(slugify "$OG_DEVICE_NAME")"
       SLUG_OG_NAME="$(slugify "$OG_NAME")"
       SLUG_OG_NAME_LAST_WORD="$(slugify "${OG_NAME##* }")"
       AREA_ID="$(yq --unwrapScalar '.area_id // ""' <<< "$ENTITY_DATA")"
@@ -339,10 +339,10 @@ then
       then
         PURPOSE="$(awk '{$1=$1;print}' <<< "${PURPOSE//"${STRIP_PURPOSE}"}")"
       fi
-      SLUG_OG_NAME_PURPOSE="$(slugify "$PURPOSE"; true)"
+      SLUG_OG_NAME_PURPOSE="$(slugify "$PURPOSE")"
       SLUG_PLATFORM="$(slugify "${PLATFORM}")"
       # shellcheck disable=SC2034
-      SLUG_ENTITY_FRIENDLY_NAME="$(slugify "${ENTITY_FRIENDLY_NAME}"; true)"
+      SLUG_ENTITY_FRIENDLY_NAME="$(slugify "${ENTITY_FRIENDLY_NAME}")"
 
       echo_debug "OG_NAME: ${OG_NAME}"
       echo_debug "DEVICE_FRIENDLY_NAME: ${DEVICE_FRIENDLY_NAME}"
