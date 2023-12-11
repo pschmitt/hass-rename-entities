@@ -63,6 +63,35 @@ transliterate() {
   sed 's/ü/ue/g; s/Ü/Ue/g; s/ö/oe/g; s/Ö/Oe/g; s/ä/ae/g; s/Ä/Ae/g; s/ß/ss/g'
 }
 
+
+# Don't repeat words (delimited by "_")
+# example:
+# dry "sensor.withings_withings_pschmitt_pschmitt_weight_goal"
+# -> sensor.withings_pschmitt_weight_goal
+# NOTE Below requires GNU sed
+# sed -r ':a;s/([^_]+)_\1/\1/g;ta' <<< "$*"
+dry() {
+  local entity_type="${*//.*}"  # sensor/binary_sensor etc
+  local str="${*//*.}" # just the name
+
+  local -a parts
+  mapfile -t parts < <(tr '_' '\n' <<< "$str")
+
+  local part prev result
+  for part in "${parts[@]}"
+  do
+    if [[ "$part" != "$prev" ]]
+    then
+      [[ -n $result ]] && result+="_"
+      result+=$part
+    fi
+
+    prev="$part"
+  done
+
+  echo "${entity_type}.${result}"
+}
+
 slugify() {
   local n="$1"
 
@@ -361,7 +390,7 @@ then
           OG_DEVICE_NAME=$SLUG_OG_DEVICE_NAME \
           OG_NAME_LW=$SLUG_OG_NAME_LAST_WORD \
           PREFIX=$SLUG_PREFIX \
-          eval echo "$NAME_FORMAT")"
+          eval dry "$NAME_FORMAT")"
       else
         # Default naming scheme
         NEW_ENTITY_ID="$(eval echo "$DEFAULT_FORMAT")"

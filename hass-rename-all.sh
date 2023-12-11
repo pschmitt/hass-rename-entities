@@ -59,6 +59,17 @@ rename_shelly() {
     --format '${ENTITY_TYPE}.shelly_${SLUG_DEVICE_NAME}$(sed -r "s/^(.+)/_\1/" <<< "${SLUG_OG_NAME_PURPOSE}")'
 }
 
+rename_tado() {
+  ./hass-rename-entites.sh \
+    -i tado
+}
+
+rename_withings() {
+  ./hass-rename-entites.sh \
+    -m Withings \
+    --format '${ENTITY_TYPE}.${SLUG_DEVICE_NAME}_${SLUG_OG_NAME_PURPOSE}'
+}
+
 rename_yeelight() {
   ./hass-rename-entites.sh \
     -i yeelight \
@@ -84,6 +95,7 @@ then
   rename_homekit
   rename_hue
   rename_shelly
+  rename_tado
   rename_yeelight
   rename_zha
 
