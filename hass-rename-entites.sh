@@ -171,7 +171,7 @@ patch_config() {
   fi
 
   # Go to config dir
-  cd "$HASS_CONFIG_DIR" &>/dev/null || cd /mnt/hass-*
+  cd "$HASS_CONFIG_DIR" &>/dev/null || cd /mnt/hass*
 
   local matching_files file
   mapfile -t matching_files < <(
