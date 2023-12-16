@@ -369,6 +369,7 @@ then
         PURPOSE="$(awk '{$1=$1;print}' <<< "${PURPOSE//"${STRIP_PURPOSE}"}")"
       fi
       SLUG_OG_NAME_PURPOSE="$(slugify "$PURPOSE")"
+      # shellcheck disable=SC2034
       SLUG_PLATFORM="$(slugify "${PLATFORM}")"
       # shellcheck disable=SC2034
       SLUG_ENTITY_FRIENDLY_NAME="$(slugify "${ENTITY_FRIENDLY_NAME}")"
