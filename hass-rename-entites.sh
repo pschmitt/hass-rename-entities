@@ -95,7 +95,7 @@ dry() {
 slugify() {
   local n="$1"
 
-  if [[ -z "$n" ]]
+  if [[ -z "$n" ]] && [[ -n "$DEBUG" ]]
   then
     echo_warning "${FUNCNAME[0]}: Empty input"
     return 0
