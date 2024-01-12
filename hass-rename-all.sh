@@ -10,9 +10,8 @@ rename_bluetooth() {
     --strip-purpose ble
 }
 
-rename_switchbot() {
-  ./hass-rename-entites.sh \
-    -m switchbot
+rename_elgato() {
+  ./hass-rename-entites.sh -i elgato --format '${ENTITY_TYPE}.${INTEGRATION}_${SLUG_DEVICE_NAME}_${SLUG_OG_NAME_PURPOSE}'
 }
 
 rename_hue() {
@@ -59,6 +58,11 @@ rename_shelly() {
     --format '${ENTITY_TYPE}.shelly_${SLUG_DEVICE_NAME}$(sed -r "s/^(.+)/_\1/" <<< "${SLUG_OG_NAME_PURPOSE}")'
 }
 
+rename_switchbot() {
+  ./hass-rename-entites.sh \
+    -m switchbot
+}
+
 rename_tado() {
   ./hass-rename-entites.sh \
     -i tado
@@ -91,10 +95,11 @@ then
   export PATCH_CONFIG_FILES=1
 
   rename_bluetooth
-  rename_switchbot
+  rename_elgato
   rename_homekit
   rename_hue
   rename_shelly
+  rename_switchbot
   rename_tado
   rename_withings
   rename_yeelight
