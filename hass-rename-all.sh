@@ -42,12 +42,12 @@ rename_homekit() {
   # Rename homekit devices (except presence sensors)
   ./hass-rename-entites.sh \
     -i homekit \
-    --device-filter '^(?!.+ presence sensor)' \
+    --device-filter '^(?!Presence Sensor .+)' \
     --format '${ENTITY_TYPE}.${INTEGRATION}_${SLUG_DEVICE_NAME}_${SLUG_OG_NAME_PURPOSE}'
   # Presence sensors
   ./hass-rename-entites.sh \
     -i homekit \
-    --device-filter '.+ presence sensor' \
+    --device-filter 'Presence Sensor .+' \
     --entity-filter "^binary_sensor\..+" \
     --format '${ENTITY_TYPE}.${INTEGRATION}_${SLUG_DEVICE_NAME}_${SLUG_ENTITY_FRIENDLY_NAME//presence_/}'
 }
